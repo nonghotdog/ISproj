@@ -1,68 +1,103 @@
-import streamlit as st
-import numpy as np
-import pandas as pd
+import streamlit
+import numpy
+import pandas
+import matplotlib.pyplot
 
-# text
+streamlit.title("**I**ntelligent **S**ystem Project")
 
-st.title("Intelligent System Project")
-st.header("header")
-st.subheader("subheader")
-st.text("text //(Plain Text) //ไม่ Markdown || HTML")
+# magic command using ifelse condition (define type value)
+# st.write
+streamlit.header("> st.write")
+streamlit.text("st.write(*args, unsafe_allow_html=False, **kwargs)\nEX.")
 
-st.header("st.write")
-st.text("st.write(*args, unsafe_allow_html=False, **kwargs)")
+streamlit.header(":blue[Text]", divider="gray")
+streamlit.write('''
+            # st.title
+            ## st.header
+            ### st.subheader
+            **bold**
+                
+            *italic*
+            >blackQuate
+            1. A
+            2. B
+            - C
+            - D
+            
+                
+            $$\sum_{i}x$$
+            
 
+            &mdash;\
 
-# status
-st.info("info")
-st.success("success")
-st.warning("warning")
-st.error("error")
-excepted = ZeroDivisionError("Trying to divide by Zero")
-st.exception(excepted) # ข้อยกเว้นที่สร้างขึ้นในบรรทัดก่อนหน้า
-def get_number():
-    try:
-        number = int(st.text_input("ใส่เลข"))
-        st.write(f"➥ {number}")
-    except ValueError as e:
-        st.exception(ValueError("กรอกตัวเลข"))
-get_number()
+                
+            :+1:
+                
+            :material/icon:
 
-# write
-st.write("write //(หลายformat)")
-st.write(range(0, 127))
+            `code`
 
-# [diff] .write && .dataframe
-st.write(pd.read_csv('data.csv')) # can't interact
-st.dataframe(pd.read_csv('data.csv')) # interact
+            :red[c]:orange[o]:green[l]:blue[o]:violet[r]
+            
+            :tulip::cherry_blossom::rose::hibiscus::sunflower::blossom:
+                
+            [Google](http://www.google.com)
+            
+            |Name|Age|
+            |----------|----------|
+            |Bam|20|
+            
+            ```
+            {
+                "Name" : "Bam",
+                "Age" : 20
+            }
+            ```
+            :blue[color]:blue-background[background]
 
-# [diff] .DataFrame && .table
-st.dataframe(  # interact
-    pd.DataFrame(
-        np.random.randn(10, 5),
-        columns=('Col %d' % i for i in range(5))
-    ).style.highlight_max(axis=0)
-)
-st.table( # can't interact
-    pd.DataFrame(
-        np.random.randn(10, 5),
-        columns=('Col %d' % i for i in range(5))
-    ).style.highlight_min(axis=0)
-)
+                ''')
+streamlit.caption("capti:blue[on]:sunglasses:")
+streamlit.code(
+    '''def code():
+    print("code format")'''
+, language="python")
+streamlit.slider("slider", 0, 100, (25, 75))
 
-# ex. chart visualization
-randomValueChart = np.random.rand(20, 3)
-st.line_chart(
-    pd.DataFrame(
-        columns = ['a', 'b', 'c']
-    )
-)
-st.table(
-    pd.DataFrame(
-        randomValueChart
-    )
-)
+# streamlit.echo()
+def get_user_name():
+    return 'Bam'
+with streamlit.echo():
 
-if st.button('Click'):
-    st.text('Clicked! Clicked !! (write)')
-    st.text('Clicked! Clicked !! (text)')
+    def get_punctuation():
+        return '!!!'
+    
+    greeting = "Hi there, "
+    name = get_user_name()
+    punctuation = get_punctuation()
+
+    streamlit.write(greeting, name, punctuation)
+cantSee = 'this one'
+
+streamlit.latex(r'''
+    [\Lambda\Alpha\Tau\Epsilon\Chi] \Longrightarrow
+    a + ar + a r^2 + a r^3 + \cdots + a r^{n-1} =
+    \sum_{k=0}^{n-1} ar^k =
+    a \left(\frac{1-r^{n}}{1-r}\right)
+    ''')
+
+streamlit.code("st.help(pandas.DataFrame) #help")
+streamlit.code("pandas.read_csv #help")
+streamlit.code("st #help")
+class Dog:
+  '''A typical dog. #quickly inspect an object'''
+  def __init__(self, breed, color):
+    self.breed = breed
+    self.color = color
+  def bark(self):
+    return 'Woof!'
+fido = Dog("poodle", "white")
+streamlit.help(fido)
+
+streamlit.html("<p><span style='text-decoration: line-through red;'>HTML</span>!</p>")
+
+streamlit.divider()
